@@ -6,9 +6,9 @@
 
 my $cnt = 1;
 
-my $S2_ID = '8647374e';
-my $NOTE2_ID = '42f60b19af259f7f';
-my $NEXUS_ID = '0149A8CD0F01100E';
+my $S2_ID = '***';
+my $NOTE2_ID = '***';
+my $NEXUS_ID = '***';
 
 while (1) {
 	print "try $cnt start\n";
