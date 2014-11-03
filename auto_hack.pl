@@ -154,16 +154,15 @@ sub screen_check {
 	my $device_id = shift;
 
 	my @lines = `adb -s $device_id shell dumpsys input_method`;
-	
+
 	foreach my $line (@lines) {
 		if ($line =~ /mScreenOn=true/) {
 			return "on";
 		} elsif ($line =~ /mScreenOn=false/) {
 			return "off";
-		} else {
-			return "error";
 		}
 	}
+	return "error";
 }
 
 sub screen_control {
