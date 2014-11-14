@@ -6,6 +6,7 @@ use utf8;
 
 use Config::IniFiles;
 use Data::Dumper;
+use Time::HiRes;
 
 use POSIX;
 
@@ -78,6 +79,7 @@ sub hack {
 		}
 	}
 
+	my $startTime = [ Time::HiRes::gettimeofday() ];
 	foreach my $device_id (@devices) {
 
 		print "start $device_id\n";
@@ -117,12 +119,18 @@ sub hack {
 		screen_control($device_id, "off");
 	}
 
+	print "adb kill-server\n";
 	system("adb kill-server"); # kill adb
 
 	print "try $cnt end\n";
 	$cnt++;
 
-	sleep(300);
+	my $elapsedTime = Time::HiRes::tv_interval($startTime);
+	printf "Elapsed time: %f sec\n", $elapsedTime;
+
+	my $loop_sleep = 300 - $elapsedTime;
+	print "sleep for $loop_sleep sec\n";
+	sleep($loop_sleep);
 }
 
 sub get_section_by_id {
